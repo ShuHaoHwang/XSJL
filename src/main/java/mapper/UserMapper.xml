@@ -46,9 +46,58 @@
     from wx_user_table
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectUserByOpenid" resultMap="BaseResultMap">
+    SELECT * FROM wx_user_table WHERE openid = #{openid}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, openid, username, contact, institute_id, grade, gender, birthday, studentid, 
     wages
     from wx_user_table
+  </select>
+  <update id="updateByOpenid" parameterType="model.User">
+    UPDATE wx_user_table
+    SET openid = #{openid,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      institute_id = #{instituteId,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      studentid = #{studentid,jdbcType=VARCHAR}
+      <where>
+        openid = #{openid,jdbcType=VARCHAR}
+      </where>
+  </update>
+
+  <insert id="insertDelivery">
+    INSERT INTO user_deliverystatus
+    SET
+    user_deliverystatus.openid =#{openid},
+    user_deliverystatus.p_id=#{projectid},
+    user_deliverystatus.`status`=#{status}
+  </insert>
+
+  <resultMap id="ResultMap2" type="model.Message" >
+
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <association property="project" javaType="model.Project">
+      <result column="p_id" property="id" jdbcType="INTEGER" />
+      <result column="principal_name" property="principalName" jdbcType="VARCHAR" />
+      <result column="p_phonenumber" property="pPhonenumber" jdbcType="VARCHAR" />
+      <result column="p_address" property="pAddress" jdbcType="VARCHAR" />
+      <result column="p_availabletime" property="pAvailabletime" jdbcType="TIMESTAMP" />
+      <result column="addtime" property="pAddtime" jdbcType="TIMESTAMP" />
+      <result column="p_name" property="pName" jdbcType="VARCHAR" />
+      <result column="p_type" property="pType" jdbcType="INTEGER" />
+      <result column="p_wages" property="pWages" jdbcType="INTEGER" />
+      <result column="mission_img" property="missionImg" jdbcType="VARCHAR" />
+      <result column="principal_img" property="principalImg" jdbcType="VARCHAR" />
+      <result column="p_desc" property="pDesc" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <select id="selectAllMessageByOpenid" resultMap="ResultMap2">
+      SELECT * FROM project JOIN user_deliverystatus ON user_deliverystatus.openid = #{openid} AND user_deliverystatus.p_id = project.id;
   </select>
 </mapper>

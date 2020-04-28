@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="model.Project" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="principal_name" property="principalName" jdbcType="VARCHAR" />
+    <result column="p_phonenumber" property="pPhonenumber" jdbcType="VARCHAR" />
+    <result column="p_address" property="pAddress" jdbcType="VARCHAR" />
+    <result column="p_availabletime" property="pAvailabletime" jdbcType="TIMESTAMP" />
+    <result column="p_addtime" property="pAddtime" jdbcType="TIMESTAMP" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="p_type" property="pType" jdbcType="INTEGER" />
+    <result column="p_wages" property="pWages" jdbcType="INTEGER" />
+    <result column="mission_img" property="missionImg" jdbcType="VARCHAR" />
+    <result column="principal_img" property="principalImg" jdbcType="VARCHAR" />
+    <result column="p_desc" property="pDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from project
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="model.Project" >
+    insert into project (id, principal_name, p_phonenumber, 
+      p_address, p_availabletime, p_addtime, 
+      p_name, p_type, p_wages, 
+      mission_img, principal_img, p_desc
+      )
+    values (#{id,jdbcType=BIGINT}, #{principalName,jdbcType=VARCHAR}, #{pPhonenumber,jdbcType=VARCHAR}, 
+      #{pAddress,jdbcType=VARCHAR}, #{pAvailabletime,jdbcType=TIMESTAMP}, #{pAddtime,jdbcType=TIMESTAMP}, 
+      #{pName,jdbcType=VARCHAR}, #{pType,jdbcType=INTEGER}, #{pWages,jdbcType=INTEGER}, 
+      #{missionImg,jdbcType=VARCHAR}, #{principalImg,jdbcType=VARCHAR}, #{pDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="model.Project" >
+    update project
+    set principal_name = #{principalName,jdbcType=VARCHAR},
+      p_phonenumber = #{pPhonenumber,jdbcType=VARCHAR},
+      p_address = #{pAddress,jdbcType=VARCHAR},
+      p_availabletime = #{pAvailabletime,jdbcType=TIMESTAMP},
+      p_addtime = #{pAddtime,jdbcType=TIMESTAMP},
+      p_name = #{pName,jdbcType=VARCHAR},
+      p_type = #{pType,jdbcType=INTEGER},
+      p_wages = #{pWages,jdbcType=INTEGER},
+      mission_img = #{missionImg,jdbcType=VARCHAR},
+      principal_img = #{principalImg,jdbcType=VARCHAR},
+      p_desc = #{pDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, principal_name, p_phonenumber, p_address, p_availabletime, p_addtime, 
+    p_name, p_type, p_wages, mission_img, principal_img, p_desc
+    from project
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, principal_name, p_phonenumber, p_address, p_availabletime, p_addtime, 
+    p_name, p_type, p_wages, mission_img, principal_img, p_desc
+    from project
+  </select>
+
+  <select id="selectUser_projectByOpenid" parameterType="String" resultType="Integer">
+    SELECT user_deliverystatus.p_id
+    FROM user_deliverystatus
+    WHERE user_deliverystatus.openid = #{openid}
+  </select>
+
+</mapper>
