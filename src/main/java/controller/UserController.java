@@ -1,5 +1,6 @@
 package controller;
 
+import model.Submit;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,6 +57,13 @@ public class UserController {
     public Object deliveryStatus(String openid) {
         System.out.println("获取消息 openid: " + openid);
         return userService.GetMessage(openid);
+    }
+
+    @RequestMapping("/submit")
+    @ResponseBody
+    public Object submit(Submit msg) {
+        System.out.println("提交 " + msg);
+        return userService.DeliverySubmit(msg);
     }
 
 

@@ -7,8 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.ProjectService;
-
-import java.util.Date;
+import service.PublicService;
 
 /**
  * @author ShuHao
@@ -23,6 +22,8 @@ public class PublicController {
     @Autowired
     private ProjectService service;
 
+    @Autowired
+    private PublicService Publicservice;
 
     //在网页表单获取对应的项目对象进行数据库封存
     @RequestMapping("/submitProject")
@@ -71,7 +72,8 @@ public class PublicController {
     @ResponseBody
     public Object GetOpinion(Opinion opinion) {
         System.out.println("GetOpinion"+opinion);
-        return null;
+
+        return Publicservice.SaveOpinion(opinion);
     }
 
 }

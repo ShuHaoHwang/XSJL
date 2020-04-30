@@ -35,4 +35,9 @@
     select id, openid, p_id, addtime, status
     from user_deliverystatus
   </select>
+  <update id="updateStatusByOpenid">
+    UPDATE user_deliverystatus
+    SET status = #{status}
+    WHERE openid = #{openid} AND p_id = #{p_id}
+  </update>
 </mapper>

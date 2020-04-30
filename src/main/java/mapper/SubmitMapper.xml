@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.SubmitMapper" >
+  <resultMap id="BaseResultMap" type="model.Submit" >
+    <id column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="missionImgs" property="missionimgs" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from submit
+    where openid = #{openid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="model.Submit" >
+    insert into submit (openid, p_id, remarks, 
+      missionImgs)
+    values (#{openid,jdbcType=VARCHAR}, #{pId,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{missionimgs,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="model.Submit" >
+    update submit
+    set p_id = #{pId,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      missionImgs = #{missionimgs,jdbcType=LONGVARCHAR}
+    where openid = #{openid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select openid, p_id, remarks, missionImgs
+    from submit
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select openid, p_id, remarks, missionImgs
+    from submit
+  </select>
+</mapper>

@@ -1,5 +1,6 @@
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import mapper.MessageMapper;
 import mapper.ProjectMapper;
 import mapper.UserMapper;
 import model.Message;
@@ -29,6 +30,8 @@ public class CheckTest {
     private UserMapper userMapper;
     @Autowired
     private ProjectMapper projectMapper;
+    @Autowired
+    private MessageMapper messageMapper;
 
 
 
@@ -67,6 +70,12 @@ public class CheckTest {
         for (Message integer : l) {
             System.out.println(integer);
         }
+    }
+
+    @Test
+    public void Test5(){
+        //messageMapper.updateStatusByOpenid("2","o_PGBw3oBvm5tv-uUe9VleM9-ipI");
+
     }
 
 }

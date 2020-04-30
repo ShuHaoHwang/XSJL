@@ -1,6 +1,7 @@
 package service;
 
 
+import model.Submit;
 import model.User;
 
 public interface UserService {
@@ -9,4 +10,5 @@ public interface UserService {
     Object SaveProfile(User u);
     Object SaveDelivery(String openid,int projectid);
     Object GetMessage(String openid);
+    Object DeliverySubmit(Submit s);
 }

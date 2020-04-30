@@ -14,11 +14,9 @@ public interface ProjectService {
 
     public List<String> ListInstitute();
 
-//  public List<Map> GetMessage(String openid);
 
     public Project GetProjectById(long id);
 
     Object loadMessage(String openid);
 
-//    public Map<String,Object>SaveDelivery(String openid, int projectid);
 }

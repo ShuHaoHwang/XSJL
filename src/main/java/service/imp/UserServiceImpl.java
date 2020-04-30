@@ -1,8 +1,10 @@
 package service.imp;
 
 import mapper.MessageMapper;
+import mapper.SubmitMapper;
 import mapper.UserMapper;
 import model.Message;
+import model.Submit;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private MessageMapper messageMapper;
 
+    @Autowired
+    private SubmitMapper submitMapper;
 
     @Override
     public Object GetSessionkey(String Code) {
@@ -70,6 +74,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public Object GetMessage(String openid) {
         return userMapper.selectAllMessageByOpenid(openid);
+    }
+
+    @Override
+    public Object DeliverySubmit(Submit s) {
+
+        submitMapper.insert(s);
+        System.out.println("这里的openid接到了吗" + s.getOpenid());
+        messageMapper.updateStatusByOpenid("2",s.getOpenid(),s.getpId());
+
+        return "isok";
     }
 
 
